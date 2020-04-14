@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1022
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTienda", "WebTienda\WebTienda.csproj", "{3E0ADFBE-1A36-4373-9C42-C007D6E93DB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTienda.Tests", "WebTienda.Tests\WebTienda.Tests.csproj", "{0F2EF566-3DC3-45E5-B826-D2542B52AFBB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3E0ADFBE-1A36-4373-9C42-C007D6E93DB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E0ADFBE-1A36-4373-9C42-C007D6E93DB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E0ADFBE-1A36-4373-9C42-C007D6E93DB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E0ADFBE-1A36-4373-9C42-C007D6E93DB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F2EF566-3DC3-45E5-B826-D2542B52AFBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F2EF566-3DC3-45E5-B826-D2542B52AFBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F2EF566-3DC3-45E5-B826-D2542B52AFBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F2EF566-3DC3-45E5-B826-D2542B52AFBB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {581DD1E1-9A0E-47DC-8299-EDBCFA393B38}
+	EndGlobalSection
+EndGlobal
