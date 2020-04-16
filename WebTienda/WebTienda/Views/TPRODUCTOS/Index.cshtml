@@ -1,0 +1,40 @@
+﻿@model IEnumerable<WebTienda.Models.TPRODUCTOS>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PRODUCTO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VALOR)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PRODUCTO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VALOR)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CODPRODUCTO }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CODPRODUCTO }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CODPRODUCTO })
+        </td>
+    </tr>
+}
+
+</table>

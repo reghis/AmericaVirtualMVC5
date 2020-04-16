@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ModelLIBRERIA.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'aspnet-WebTienda-20200414104956.dbo.TDESCUENTOS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TDESCUENTOS">
+          <Key>
+            <PropertyRef Name="CODPRODUCTO" />
+            <PropertyRef Name="CODFACTURA" />
+          </Key>
+          <Property Name="CODPRODUCTO" Type="int" Nullable="false" />
+          <Property Name="CANTIDAD" Type="int" />
+          <Property Name="DESCUENTOS" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="CODFACTURA" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TFACTURA">
+          <Key>
+            <PropertyRef Name="CODFACTURA" />
+          </Key>
+          <Property Name="CODFACTURA" Type="int" Nullable="false" />
+          <Property Name="RUC" Type="int" Nullable="false" />
+          <Property Name="FECHA" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TPRODUCTOS">
+          <Key>
+            <PropertyRef Name="CODPRODUCTO" />
+          </Key>
+          <Property Name="CODPRODUCTO" Type="int" Nullable="false" />
+          <Property Name="PRODUCTO" Type="nvarchar" MaxLength="50" />
+          <Property Name="VALOR" Type="numeric" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="TRUCCLIENTE">
+          <Key>
+            <PropertyRef Name="RUC" />
+          </Key>
+          <Property Name="RUC" Type="int" Nullable="false" />
+          <Property Name="NOMBRECLIENTE" Type="nvarchar" MaxLength="40" />
+          <Property Name="CIUDAD" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="PK_TFACTURA_A_FK_TDESCUENTOS">
+          <End Role="TFACTURA" Type="Self.TFACTURA" Multiplicity="1" />
+          <End Role="TDESCUENTOS" Type="Self.TDESCUENTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TFACTURA">
+              <PropertyRef Name="CODFACTURA" />
+            </Principal>
+            <Dependent Role="TDESCUENTOS">
+              <PropertyRef Name="CODFACTURA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PK_TPRODUCTOS_A_FK_TDESCUENTOS">
+          <End Role="TPRODUCTOS" Type="Self.TPRODUCTOS" Multiplicity="1" />
+          <End Role="TDESCUENTOS" Type="Self.TDESCUENTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TPRODUCTOS">
+              <PropertyRef Name="CODPRODUCTO" />
+            </Principal>
+            <Dependent Role="TDESCUENTOS">
+              <PropertyRef Name="CODPRODUCTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PK_TRUCCLIENTE_A_FK_TFACTURA">
+          <End Role="TRUCCLIENTE" Type="Self.TRUCCLIENTE" Multiplicity="1" />
+          <End Role="TFACTURA" Type="Self.TFACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRUCCLIENTE">
+              <PropertyRef Name="RUC" />
+            </Principal>
+            <Dependent Role="TFACTURA">
+              <PropertyRef Name="RUC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelLIBRERIAStoreContainer">
+          <EntitySet Name="TFACTURA" EntityType="Self.TFACTURA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TPRODUCTOS" EntityType="Self.TPRODUCTOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TRUCCLIENTE" EntityType="Self.TRUCCLIENTE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TDESCUENTOS" EntityType="Self.TDESCUENTOS" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TDESCUENTOS].[CODPRODUCTO] AS [CODPRODUCTO], 
+    [TDESCUENTOS].[CANTIDAD] AS [CANTIDAD], 
+    [TDESCUENTOS].[DESCUENTOS] AS [DESCUENTOS], 
+    [TDESCUENTOS].[CODFACTURA] AS [CODFACTURA]
+    FROM [dbo].[TDESCUENTOS] AS [TDESCUENTOS]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="PK_TFACTURA_A_FK_TDESCUENTOS" Association="Self.PK_TFACTURA_A_FK_TDESCUENTOS">
+            <End Role="TFACTURA" EntitySet="TFACTURA" />
+            <End Role="TDESCUENTOS" EntitySet="TDESCUENTOS" />
+          </AssociationSet>
+          <AssociationSet Name="PK_TPRODUCTOS_A_FK_TDESCUENTOS" Association="Self.PK_TPRODUCTOS_A_FK_TDESCUENTOS">
+            <End Role="TPRODUCTOS" EntitySet="TPRODUCTOS" />
+            <End Role="TDESCUENTOS" EntitySet="TDESCUENTOS" />
+          </AssociationSet>
+          <AssociationSet Name="PK_TRUCCLIENTE_A_FK_TFACTURA" Association="Self.PK_TRUCCLIENTE_A_FK_TFACTURA">
+            <End Role="TRUCCLIENTE" EntitySet="TRUCCLIENTE" />
+            <End Role="TFACTURA" EntitySet="TFACTURA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ModelLIBRERIA" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TFACTURA">
+          <Key>
+            <PropertyRef Name="CODFACTURA" />
+          </Key>
+          <Property Name="CODFACTURA" Type="Int32" Nullable="false" />
+          <Property Name="RUC" Type="Int32" Nullable="false" />
+          <Property Name="FECHA" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TDESCUENTOS" Relationship="Self.PK_TFACTURA_A_FK_TDESCUENTOS" FromRole="TFACTURA" ToRole="TDESCUENTOS" />
+          <NavigationProperty Name="TRUCCLIENTE" Relationship="Self.PK_TRUCCLIENTE_A_FK_TFACTURA" FromRole="TFACTURA" ToRole="TRUCCLIENTE" />
+        </EntityType>
+        <EntityType Name="TPRODUCTOS">
+          <Key>
+            <PropertyRef Name="CODPRODUCTO" />
+          </Key>
+          <Property Name="CODPRODUCTO" Type="Int32" Nullable="false" />
+          <Property Name="PRODUCTO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VALOR" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="TDESCUENTOS" Relationship="Self.PK_TPRODUCTOS_A_FK_TDESCUENTOS" FromRole="TPRODUCTOS" ToRole="TDESCUENTOS" />
+        </EntityType>
+        <EntityType Name="TRUCCLIENTE">
+          <Key>
+            <PropertyRef Name="RUC" />
+          </Key>
+          <Property Name="RUC" Type="Int32" Nullable="false" />
+          <Property Name="NOMBRECLIENTE" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="CIUDAD" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TFACTURA" Relationship="Self.PK_TRUCCLIENTE_A_FK_TFACTURA" FromRole="TRUCCLIENTE" ToRole="TFACTURA" />
+        </EntityType>
+        <EntityType Name="TDESCUENTOS">
+          <Key>
+            <PropertyRef Name="CODPRODUCTO" />
+            <PropertyRef Name="CODFACTURA" />
+          </Key>
+          <Property Name="CODPRODUCTO" Type="Int32" Nullable="false" />
+          <Property Name="CANTIDAD" Type="Int32" />
+          <Property Name="DESCUENTOS" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="CODFACTURA" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TFACTURA" Relationship="Self.PK_TFACTURA_A_FK_TDESCUENTOS" FromRole="TDESCUENTOS" ToRole="TFACTURA" />
+          <NavigationProperty Name="TPRODUCTOS" Relationship="Self.PK_TPRODUCTOS_A_FK_TDESCUENTOS" FromRole="TDESCUENTOS" ToRole="TPRODUCTOS" />
+        </EntityType>
+        <Association Name="PK_TFACTURA_A_FK_TDESCUENTOS">
+          <End Role="TFACTURA" Type="Self.TFACTURA" Multiplicity="1" />
+          <End Role="TDESCUENTOS" Type="Self.TDESCUENTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TFACTURA">
+              <PropertyRef Name="CODFACTURA" />
+            </Principal>
+            <Dependent Role="TDESCUENTOS">
+              <PropertyRef Name="CODFACTURA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PK_TRUCCLIENTE_A_FK_TFACTURA">
+          <End Role="TRUCCLIENTE" Type="Self.TRUCCLIENTE" Multiplicity="1" />
+          <End Role="TFACTURA" Type="Self.TFACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRUCCLIENTE">
+              <PropertyRef Name="RUC" />
+            </Principal>
+            <Dependent Role="TFACTURA">
+              <PropertyRef Name="RUC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PK_TPRODUCTOS_A_FK_TDESCUENTOS">
+          <End Role="TPRODUCTOS" Type="Self.TPRODUCTOS" Multiplicity="1" />
+          <End Role="TDESCUENTOS" Type="Self.TDESCUENTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TPRODUCTOS">
+              <PropertyRef Name="CODPRODUCTO" />
+            </Principal>
+            <Dependent Role="TDESCUENTOS">
+              <PropertyRef Name="CODPRODUCTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EntidadesLibreria" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TFACTURA" EntityType="Self.TFACTURA" />
+          <EntitySet Name="TPRODUCTOS" EntityType="Self.TPRODUCTOS" />
+          <EntitySet Name="TRUCCLIENTE" EntityType="Self.TRUCCLIENTE" />
+          <EntitySet Name="TDESCUENTOS" EntityType="Self.TDESCUENTOS" />
+          <AssociationSet Name="PK_TFACTURA_A_FK_TDESCUENTOS" Association="Self.PK_TFACTURA_A_FK_TDESCUENTOS">
+            <End Role="TFACTURA" EntitySet="TFACTURA" />
+            <End Role="TDESCUENTOS" EntitySet="TDESCUENTOS" />
+          </AssociationSet>
+          <AssociationSet Name="PK_TRUCCLIENTE_A_FK_TFACTURA" Association="Self.PK_TRUCCLIENTE_A_FK_TFACTURA">
+            <End Role="TRUCCLIENTE" EntitySet="TRUCCLIENTE" />
+            <End Role="TFACTURA" EntitySet="TFACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="PK_TPRODUCTOS_A_FK_TDESCUENTOS" Association="Self.PK_TPRODUCTOS_A_FK_TDESCUENTOS">
+            <End Role="TPRODUCTOS" EntitySet="TPRODUCTOS" />
+            <End Role="TDESCUENTOS" EntitySet="TDESCUENTOS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelLIBRERIAStoreContainer" CdmEntityContainer="EntidadesLibreria">
+          <EntitySetMapping Name="TFACTURA">
+            <EntityTypeMapping TypeName="ModelLIBRERIA.TFACTURA">
+              <MappingFragment StoreEntitySet="TFACTURA">
+                <ScalarProperty Name="CODFACTURA" ColumnName="CODFACTURA" />
+                <ScalarProperty Name="RUC" ColumnName="RUC" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TPRODUCTOS">
+            <EntityTypeMapping TypeName="ModelLIBRERIA.TPRODUCTOS">
+              <MappingFragment StoreEntitySet="TPRODUCTOS">
+                <ScalarProperty Name="CODPRODUCTO" ColumnName="CODPRODUCTO" />
+                <ScalarProperty Name="PRODUCTO" ColumnName="PRODUCTO" />
+                <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRUCCLIENTE">
+            <EntityTypeMapping TypeName="ModelLIBRERIA.TRUCCLIENTE">
+              <MappingFragment StoreEntitySet="TRUCCLIENTE">
+                <ScalarProperty Name="RUC" ColumnName="RUC" />
+                <ScalarProperty Name="NOMBRECLIENTE" ColumnName="NOMBRECLIENTE" />
+                <ScalarProperty Name="CIUDAD" ColumnName="CIUDAD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TDESCUENTOS">
+            <EntityTypeMapping TypeName="ModelLIBRERIA.TDESCUENTOS">
+              <MappingFragment StoreEntitySet="TDESCUENTOS">
+                <ScalarProperty Name="CODPRODUCTO" ColumnName="CODPRODUCTO" />
+                <ScalarProperty Name="CANTIDAD" ColumnName="CANTIDAD" />
+                <ScalarProperty Name="DESCUENTOS" ColumnName="DESCUENTOS" />
+                <ScalarProperty Name="CODFACTURA" ColumnName="CODFACTURA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

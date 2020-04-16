@@ -3,12 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebTienda.Models;
+using PagedList;
 
 namespace WebTienda.Controllers
 {
     public class HomeController : Controller
     {
 
+        private IRepositorio repository;
+        private const int NumeroItemsPorPagina = 4;
+
+
+        private EntidadesLibreria db = new EntidadesLibreria();
+
+        public int PageSize = 4;
         public ActionResult Index()
         {
 
@@ -73,12 +82,26 @@ namespace WebTienda.Controllers
         }
 
 
-        public ActionResult Contact()
+        public ActionResult Contact(int? pagina)
         {
             ViewBag.Message = "Listado de Productos";
+            //var _lista = db.TPRODUCTOS.ToList();
+            //return View(_lista
+            //            .OrderBy(p => p.CODPRODUCTO)
+            //            .Skip((page - 1) * PageSize)
+            //            .Take(PageSize));
+            int pageNumber = (pagina ?? 1);
+            var viewModel = new ListaViewModel
+            {
+                tproducto = db.TPRODUCTOS
+                .OrderByDescending(m => m.PRODUCTO)
+                .ToPagedList(pageNumber, pageSize: NumeroItemsPorPagina)
+            };
+            var _LtsProd = viewModel;
+            return View(viewModel);
 
-            return View();
         }
+
     }
 
 }

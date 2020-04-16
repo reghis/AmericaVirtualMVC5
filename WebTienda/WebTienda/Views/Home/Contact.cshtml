@@ -1,17 +1,40 @@
-﻿@{
-    ViewBag.Title = "Contact";
+﻿@*@model IEnumerable<WebTienda.Models.TPRODUCTOS>*@
+@using PagedList.Mvc;
+@using PagedList;
+@*@model IPagedList<WebTienda.Models.TPRODUCTOS>*@
+@model WebTienda.Models.ListaViewModel
+
+@{
+    ViewBag.Title = "Lista Paginada Tarjetas";
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+@foreach (var p in Model.tproducto)
+{
+    <div class="well">
+        <p>
+            <span class="glyphicon glyphicon-time"></span> Publicado el @DateTime.Now
+        </p>
+        <h3>@p.PRODUCTO </h3>
+        <h2>CODIGO: @p.CODPRODUCTO</h2>
+        <h4>@p.VALOR</h4>
+        @Html.Raw(p.CODPRODUCTO)
+    </div>
+}
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<ul class="pager">
+    @if (Model.tproducto.HasNextPage)
+    {
+        <li class="previous">
+            <a href="@Url.Action("Contact", new {pagina = Model.tproducto.PageNumber + 1})">&larr; Entradas más antiguas</a>
+        </li>
+    }
+    @if (Model.tproducto.HasPreviousPage)
+    {
+        <li class="next">
+            <a href="@Url.Action("Contact", new {pagina = Model.tproducto.PageNumber - 1})">Entradas más recientes &rarr;</a>
+        </li>
+    }
+</ul>
+
