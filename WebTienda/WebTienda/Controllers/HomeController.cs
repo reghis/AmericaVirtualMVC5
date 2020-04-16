@@ -75,9 +75,10 @@ namespace WebTienda.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Listado de Productos";
 
             return View();
         }
     }
+
 }
