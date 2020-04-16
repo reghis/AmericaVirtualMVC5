@@ -46,9 +46,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -183,20 +191,54 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TPRODUCTOSController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IRepositorio.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ModeloLibreria.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloLibreria.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModeloLibreria.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloLibreria.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModeloLibreria.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloLibreria.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TDESCUENTOS.cs">
+      <DependentUpon>ModeloLibreria.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TFACTURA.cs">
+      <DependentUpon>ModeloLibreria.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TPRODUCTOS.cs">
+      <DependentUpon>ModeloLibreria.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TRUCCLIENTE.cs">
+      <DependentUpon>ModeloLibreria.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-WebTienda-20200414104956.mdf" />
+    <Content Include="App_Data\aspnet-WebTienda-20200414104956_log.ldf">
+      <DependentUpon>aspnet-WebTienda-20200414104956.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\wp-content\plugins\woocommerce\assets\css\blocks\style3ab2.css" />
     <Content Include="Content\wp-content\plugins\woocommerce\assets\css\select23ab2.css" />
     <Content Include="Content\wp-content\plugins\woocommerce\assets\js\frontend\add-to-cart-variation.min3ab2.js" />
@@ -269,6 +311,16 @@
     <Content Include="imgs\av-social.png" />
     <Content Include="imgs\favicon-16x16.png" />
     <Content Include="imgs\favicon-32x32.png" />
+    <Content Include="Models\ModeloLibreria.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModeloLibreria.edmx</DependentUpon>
+      <LastGenOutput>ModeloLibreria.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ModeloLibreria.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModeloLibreria.edmx</DependentUpon>
+      <LastGenOutput>ModeloLibreria.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\wp-content\themes\virtue\assets\css\fonts\kt-font-awesomebc5d.eot" />
@@ -278,6 +330,13 @@
     <Content Include="Content\wp-content\themes\virtue\assets\css\fonts\star.ttf" />
     <Content Include="Content\wp-content\themes\virtue\assets\css\fonts\star.woff" />
     <Content Include="Content\wp-content\themes\virtue\assets\css\fonts\stard41d.eot" />
+    <EntityDeploy Include="Models\ModeloLibreria.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModeloLibreria.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ModeloLibreria.edmx.diagram">
+      <DependentUpon>ModeloLibreria.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -334,9 +393,14 @@
     <Content Include="Views\Home\MointainBikeTShirt.cshtml" />
     <Content Include="Views\Home\MountainwareHoodie.cshtml" />
     <Content Include="Views\Home\CoffeeTShirt.cshtml" />
+    <Content Include="Views\TPRODUCTOS\Create.cshtml" />
+    <Content Include="Views\TPRODUCTOS\Delete.cshtml" />
+    <Content Include="Views\TPRODUCTOS\Details.cshtml" />
+    <Content Include="Views\TPRODUCTOS\Edit.cshtml" />
+    <Content Include="Views\TPRODUCTOS\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
