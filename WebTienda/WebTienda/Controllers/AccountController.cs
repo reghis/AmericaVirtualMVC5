@@ -391,6 +391,8 @@ namespace WebTienda.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+
+
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
@@ -402,6 +404,8 @@ namespace WebTienda.Controllers
         {
             return View();
         }
+
+        
 
         protected override void Dispose(bool disposing)
         {
@@ -422,6 +426,7 @@ namespace WebTienda.Controllers
 
             base.Dispose(disposing);
         }
+
 
         #region Helpers
         // Used for XSRF protection when adding external logins

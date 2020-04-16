@@ -8,8 +8,10 @@ namespace WebTienda.Controllers
 {
     public class HomeController : Controller
     {
+
         public ActionResult Index()
         {
+
             return View();
         }
 
@@ -19,6 +21,57 @@ namespace WebTienda.Controllers
 
             return View();
         }
+
+        public ActionResult RacerHoodie()
+        {
+            return View();
+        }
+
+        public ActionResult ExplorerHoodie()
+        {
+            return View();
+        }
+
+        public ActionResult FishermanTS()
+        {
+            return View();
+        }
+
+        public ActionResult MontainWare()
+        {
+            return View();
+        }
+
+        public ActionResult MarketTS()
+        {
+            return View();
+        }
+
+        public ActionResult BrewskiHoodie()
+        {
+            return View();
+        }
+
+        public ActionResult MontainTShirt()
+        {
+            return View();
+        }
+
+        public ActionResult MointainBikeTShirt()
+        {
+            return View();
+        }
+
+        public ActionResult MountainwareHoodie()
+        {
+            return View();
+        }
+
+        public ActionResult CoffeeTShirt()
+        {
+            return View();
+        }
+
 
         public ActionResult Contact()
         {
