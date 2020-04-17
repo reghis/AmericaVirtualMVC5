@@ -1,0 +1,247 @@
+﻿
+@{
+    ViewBag.Title = "ListaProductosAPI";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<h2>Lista Productos API</h2>
+@using (Html.BeginForm())
+{
+
+    <button id="btngetProductos">get Productos</button>
+
+    <hr />
+    <div style="color:black" id="lblMensaje"></div>
+    <hr />
+
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#btngetProductos').on("click", function () {
+            $.ajax({
+                type: 'GET',
+                url: '/api/TPRODUCTOS',
+                datatype: 'json',
+                cache: false,
+            })
+             .success(function (data) {
+                    var outPut = '';
+                     outPut += '<table>'
+                 for (var i = 0; i < data.length; i++) {
+                        outPut += '<tr>'
+                        outPut += '<td><input type="text" value="' + data[i].CODPRODUCTO + '" /></td> ';
+                        outPut += '<td><input type="text" value="' + data[i].PRODUCTO + '" /></td> ';
+                        outPut += '<td><input  type="text" value="' + data[i].VALOR + '" /></td> ';
+                        outPut += '</tr>'
+                    } 
+                    outPut += ' </table>'
+                    $('#lblMensaje').html(outPut);
+                })
+                .error(function (hxr, ajaxOptions, throwError) {
+                    $('#lblMensaje').html('Error!!!');
+                });
+            return false;
+        });
+        $('#btnGetPersona').on("click", function () {
+            var PersonaID = $('#txtPersonaID').val();
+            if (PersonaID == "") {
+                $('#lblMensaje').html('Usted debe introducir registro');
+                $('#txtPersonaID').focus();
+                return false;
+            }
+            $.ajax({
+                type: 'GET',
+                url: '/api/PersonModels/' + PersonaID,
+                datatype: 'json',
+                cache: false,
+            })
+                .success(function (data) {
+                    if (data != null) {
+                        var outPut = '';
+                        outPut += '<hr/><br/>';
+                        outPut += '<b> Person Id: </b>' + data.PersonModelId + '<br/> ';
+                        outPut += '<b> Name     : </b>' + data.Name + '<br/> ';
+                        document.getElementById("txtPersonaNombre").value = data.Name;
+                        outPut += '<b> Address  : </b>' + data.Address + '<br/> ';
+                        document.getElementById("txtPersonaDireccion").value = data.Address;
+                        outPut += '<b> Phone    : </b>' + data.Phone + '<br/> ';
+                        document.getElementById("txtTelefono").value = data.Phone;
+                        $('#lblMensaje').html(outPut);
+                    }
+                    else {
+                        $('#lblMensaje').html('No existe ese registro');
+                    }
+
+                })
+                .error(function (hxr, ajaxOptions, throwError) {
+                    $('#lblMensaje').html('Error!!!');
+                });
+            return false;
+        });
+        $('#btnAddPersona').on("click", function () {
+            var PersonaNombre = $('#txtPersonaNombre').val();
+            var PersonaDireccion = $('#txtPersonaDireccion').val();
+            var PersonaTelefono = $('#txtTelefono').val();
+            if (PersonaNombre == "") {
+                $('#lblMensaje').html('Usted debe introducir PersonaNombre');
+                $("#txtPersonaNombre").focus();
+                return false;
+            }
+            if (PersonaDireccion == "") {
+                $('#lblMensaje').html('Usted debe introducir PersonaDireccion');
+                $("#txtPersonaDireccion").focus();
+                return false;
+            }
+            if (PersonaTelefono == "") {
+                $('#lblMensaje').html('Usted debe introducir PersonaTelefono');
+                $("#txtTelefono").focus();
+                return false;
+            }
+            // Aca para adicionar venir un formato JSON
+            var Person = { Name: PersonaNombre, Address: PersonaDireccion, Phone: PersonaTelefono }
+
+            $.ajax({
+                type: 'POST',
+                url: '/api/PersonModels',
+                data: Person,
+                datatype: 'json',
+                cache: false,
+            })
+                .success(function (data) {
+                    var outPut = '';
+                    outPut += '<hr/>Registro Adicionado<br/>';
+                    outPut += '<b> Person Id: </b>' + data.PersonModelId + '<br/> ';
+                    outPut += '<b> Name     : </b>' + data.Name + '<br/> ';
+                    outPut += '<b> Address  : </b>' + data.Address + '<br/> ';
+                    outPut += '<b> Phone    : </b>' + data.Phone + '<br/> ';
+                    $('#lblMensaje').html(outPut);
+
+                })
+                .error(function (hxr, ajaxOptions, throwError) {
+                    $('#lblMensaje').html('Error al adicionar!!!');
+                });
+            return false;
+        });
+        $('#btnUpdatePersona').on("click", function () {
+            var PersonaID = $('#txtPersonaID').val();
+            // Para Obtener Valor  digitado es.....   var value = $('.txtPersonaID').val();
+            if (PersonaID == "") {
+                $('#lblMensaje').html('Usted debe introducir registro');
+                return false;
+            }
+            var PersonaNombre = $('#txtPersonaNombre').val();
+            var PersonaDireccion = $('#txtPersonaDireccion').val();
+            var PersonaTelefono = $('#txtTelefono').val();
+            if (PersonaNombre == "") {
+                $('#lblMensaje').html('Usted debe introducir PersonaNombre');
+                $("#txtPersonaNombre").focus();
+                return false;
+            }
+            if (PersonaDireccion == "") {
+                $('#lblMensaje').html('Usted debe introducir PersonaDireccion');
+                $("#txtPersonaDireccion").focus();
+                return false;
+            }
+            if (PersonaTelefono == "") {
+                $('#lblMensaje').html('Usted debe introducir PersonaTelefono');
+                $("#txtTelefono").focus();
+                return false;
+            }
+            // Aca para adicionar un formato JSON
+            var Person = { PersonModelID: PersonaID, Name: PersonaNombre, Address: PersonaDireccion, Phone: PersonaTelefono }
+
+            $.ajax({
+                type: 'PUT',
+                url: '/api/PersonModels/' + PersonaID,
+                data: Person,
+                datatype: 'json',
+                cache: false,
+            })
+                .success(function (data) {
+                    var outPut = '';
+                    outPut += '<hr/>Registro ha sido Actualizado!!!<br/>';
+                    $('#lblMensaje').html(outPut);
+                })
+                .error(function (hxr, ajaxOptions, throwError) {
+                    $('#lblMensaje').html('Error al Actualizar!!!');
+                });
+            return false;
+        });
+        $('#btnDelPersona').on("click", function () {
+            var PersonaID = $('#txtPersonaID').val();
+            if (PersonaID == "") {
+                $('#lblMensaje').html('Usted debe introducir registro');
+                $('#txtPersonaID').focus();
+                return false;
+            }
+            $.ajax({
+                type: 'DELETE',
+                url: '/api/PersonModels/' + PersonaID,
+                datatype: 'json',
+                cache: false,
+            })
+                .success(function (data) {
+                    if (data != null) {
+                        var outPut = '';
+                        outPut += '<hr/>Registro Borrado <br/>';
+                        outPut += '<b> Person Id: </b>' + data.PersonModelId + '<br/> ';
+                        outPut += '<b> Name     : </b>' + data.Name + '<br/> ';
+                        document.getElementById("txtPersonaNombre").value = data.Name;
+                        outPut += '<b> Address  : </b>' + data.Address + '<br/> ';
+                        document.getElementById("txtPersonaDireccion").value = data.Address;
+                        outPut += '<b> Phone    : </b>' + data.Phone + '<br/> ';
+                        document.getElementById("txtTelefono").value = data.Phone;
+                        $('#lblMensaje').html(outPut);
+                    }
+                    else {
+                        $('#lblMensaje').html('No existe ese registro');
+                    }
+
+                })
+                .error(function (hxr, ajaxOptions, throwError) {
+                    $('#lblMensaje').html('Error!!!');
+                });
+
+            return false;
+        });
+
+        // Para activar o desactivar
+        $(document).ajaxStart(function () {
+            $("#loading").show();
+
+        });
+        $(document).ajaxStop(function () {
+            $("#loading").hide();
+        });
+
+
+
+
+    });
+
+</script>
+
+<style type="text/css">
+
+    #loading {
+        display: none;
+        background-color: gray;
+        z-index: 999999;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        padding-top: 300px;
+        filter: alpha(opacity=75);
+        -khtml-opacity: 0.75;
+        -moz-opacity: 0.75;
+        opacity: 0.75;
+    }
+</style>
+<div id="loading"><img src="~/imgs/052.gif" /> </div>
+

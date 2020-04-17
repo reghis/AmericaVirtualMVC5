@@ -18,7 +18,7 @@
         </p>
         <h3>@p.PRODUCTO </h3>
         <h2>CODIGO: @p.CODPRODUCTO</h2>
-        <h4>@p.VALOR</h4>
+        <strong>@p.VALOR</strong>
         @Html.Raw(p.CODPRODUCTO)
     </div>
 }
@@ -27,13 +27,13 @@
     @if (Model.tproducto.HasNextPage)
     {
         <li class="previous">
-            <a href="@Url.Action("Contact", new {pagina = Model.tproducto.PageNumber + 1})">&larr; Entradas más antiguas</a>
+            <a href="@Url.Action("Contact", new {pagina = Model.tproducto.PageNumber + 1})">&larr; Paginas Anteriores</a>
         </li>
     }
     @if (Model.tproducto.HasPreviousPage)
     {
         <li class="next">
-            <a href="@Url.Action("Contact", new {pagina = Model.tproducto.PageNumber - 1})">Entradas más recientes &rarr;</a>
+            <a href="@Url.Action("Contact", new {pagina = Model.tproducto.PageNumber - 1})">Paginas Siguientes &rarr;</a>
         </li>
     }
 </ul>

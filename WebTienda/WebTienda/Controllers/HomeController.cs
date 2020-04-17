@@ -17,7 +17,7 @@ namespace WebTienda.Controllers
 
         private EntidadesLibreria db = new EntidadesLibreria();
 
-        public int PageSize = 4;
+        public int PageSize = 2;
         public ActionResult Index()
         {
 
@@ -81,7 +81,6 @@ namespace WebTienda.Controllers
             return View();
         }
 
-
         public ActionResult Contact(int? pagina)
         {
             ViewBag.Message = "Listado de Productos";
@@ -99,8 +98,14 @@ namespace WebTienda.Controllers
             };
             var _LtsProd = viewModel;
             return View(viewModel);
-
         }
+
+        public ActionResult ListaProductosAPI()
+        {
+            return View();
+        }
+
+
 
     }
 

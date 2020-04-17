@@ -59,21 +59,21 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/jquery")*@
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    @*@RenderSection("scripts", required: false)*@
 </body>
 </html>
-<script type="text/javascript">
+@*<script type="text/javascript">
     $(window).on("load", function () {
         $(".spinner").fadeOut();
         $("#preloader").delay(350).fadeOut("slow");
         $("body").delay(350).css({ overflowY: "visible" });
     });
-</script>
+</script>*@
 
 <!-- PRE CSS -->
-<style type="text/css">
+@*<style type="text/css">
     #preloader {
         position: fixed;
         top: 0;
@@ -175,4 +175,4 @@
         transform: rotate(450deg)
     }
     }
-</style>
+</style>*@
